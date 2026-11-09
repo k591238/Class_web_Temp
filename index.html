@@ -200,6 +200,7 @@ details .tbl{border-top:1px solid var(--line)}
 .danger ol{margin:0;padding-left:1.3rem;display:grid;gap:.45rem}
 pre{background:var(--surface);border:1px solid var(--line);padding:.8rem 1rem;overflow-x:auto;margin:0;font-family:var(--mono);font-size:.8rem;line-height:1.7}
 .note{font-size:.82rem;color:var(--muted)}
+footer .copy{margin-top:.6rem;color:var(--fg);opacity:.7}
 footer{padding-block:2rem 5rem;color:var(--muted);font-family:var(--mono);font-size:.7rem;letter-spacing:.04em}
 
 .pat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
@@ -720,8 +721,43 @@ input[type=range]:hover::-moz-range-thumb,input[type=range]:focus::-moz-range-th
   </details>
 </section>
 
+<section id="pathanim">
+  <div class="sec-no"><b>09</b>軟體 · 路徑動畫</div>
+  <h2>把圖形「畫」出來：Write-on 與 Comet</h2>
+  <div class="duo" id="pa">
+    <div class="duo-vis">
+      <canvas id="pa_c" width="560" height="560" aria-label="路徑動畫示意"></canvas>
+      <div class="legend"><span><i style="background:var(--g)"></i>出光的一段</span><span><i style="background:var(--blank)"></i>振鏡仍要掃過（只調暗時）</span><span><i style="background:var(--accent)"></i>筆頭</span></div>
+    </div>
+    <div class="duo-txt">
+      <p>只讓路徑上的「一段」出光，筆頭（Path）往前推，圖形就像被畫出來。<b>Write-on</b>：從起點畫到終點後停住。<b>Comet</b>：固定長度（Length）的一段沿路徑跑，尾端漸暗。</p>
+      <div class="ctrl"><div class="row"><span>圖形</span></div>
+        <div class="seg" id="pa_pat"><button type="button" data-v="star" aria-pressed="true">Star</button><button type="button" data-v="rose" aria-pressed="false">Rose</button><button type="button" data-v="demo" aria-pressed="false">Circle+Rect</button><button type="button" data-v="wave" aria-pressed="false">Wave</button></div></div>
+      <div class="ctrl"><div class="row"><span>Mode</span></div>
+        <div class="seg" id="pa_mode"><button type="button" data-v="writeon" aria-pressed="false">Write-on</button><button type="button" data-v="comet" aria-pressed="true">Comet</button></div></div>
+      <div class="ctrl"><div class="row"><span>看不見的部分</span></div>
+        <div class="seg" id="pa_hide"><button type="button" data-v="cut" aria-pressed="true">剪掉</button><button type="button" data-v="dim" aria-pressed="false">只調暗</button></div></div>
+      <div class="ctrl"><div class="row"><label for="pa_path">Path（筆頭位置）</label><output id="pa_vpath"></output></div>
+        <input type="range" id="pa_path" min="0" max="1" step="0.005" value="0"><small>拖曳時暫停自動播放，放開後從這裡接著跑。</small></div>
+      <div class="ctrl"><div class="row"><label for="pa_len">Length（Comet 長度）</label><output id="pa_vlen"></output></div>
+        <input type="range" id="pa_len" min="0.05" max="1" step="0.01" value="0.25"></div>
+      <div class="readout">
+        <div><b id="pa_n">–</b><span>每圈 sample</span></div>
+        <div><b id="pa_hz">–</b><span>每秒重畫</span></div>
+        <div><b id="pa_lit">–</b><span>出光比例</span></div>
+      </div>
+      <p><b>看不見的部分要剪掉，不能只調暗。</b>顏色是 0 的點，振鏡還是要掃過去，一圈的時間不會變短。真的剪掉後，畫得越短，每秒重畫越高。</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card"><div class="lbl">Resolution：動畫解析度</div><p>筆頭只能停在點上。正方形只有 4 個點，筆頭會從一個角跳到下一個角，所以要先把線切成很多等距的小段。切得越細，筆頭移動越順，但點越多、越吃效能。它只影響動畫，不影響雷射線條本身。</p></div>
+    <div class="card"><div class="lbl">角點要重新判斷</div><p>切成小段後多出很多點。只有「原本是角點、而且路徑真的在這裡轉彎」的點才保留 LasCorner = 1，不然每個小點都會停留，一圈變得很長。</p></div>
+    <div class="card"><div class="lbl">任何圖形都能用</div><p>Pattern、文字、圖片或影片描出來的輪廓，都能接在後面變成路徑動畫。對應 TD 的 <code>laser_path</code>（放在 source_switch 和 laser_color 之間，Mode = Off 時原樣通過）。</p></div>
+  </div>
+</section>
+
 <section id="helios">
-  <div class="sec-no"><b>09</b>軟體 · 接上 Helios</div>
+  <div class="sec-no"><b>10</b>軟體 · 接上 Helios</div>
   <h2>從 TouchDesigner 送到 Helios</h2>
   <p>Laser CHOP 後面接 <b>Laser Device CHOP</b>，Type 選 Helios。Output Sample Rate 依投影機的掃描速度設定，不超過 Helios 的 65,500。</p>
   <h3>TouchDesigner 設定步驟</h3>
@@ -852,7 +888,7 @@ input[type=range]:hover::-moz-range-thumb,input[type=range]:focus::-moz-range-th
 </section>
 
 </main>
-<footer><div class="wrap">實測數據來自 TouchDesigner 2025.33230 與 Laser CHOP 預設參數。互動模擬器依實測校準，振鏡慣性為示意模型。</div></footer>
+<footer><div class="wrap">實測數據來自 TouchDesigner 2025.33230 與 Laser CHOP 預設參數。互動模擬器依實測校準，振鏡慣性為示意模型。<div class="copy">© 2026 PenBit · TouchDesigner 雷射 POP 課程講義 · 保留所有權利</div></div></footer>
 
 <script>
 (function(){
@@ -972,7 +1008,7 @@ function compute(o){
 }
 function build(){S=compute(P); ptr=0; slowPos=0;}
 
-window.LaserSim={compute:o=>compute(Object.assign({},DEF,o)),DEF};
+window.LaserSim={compute:o=>compute(Object.assign({},DEF,o)),strokes:o=>shapes(Object.assign({},DEF,o)),DEF};
 function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
 function colors(){return {g:css('--g'),r:css('--r'),blank:css('--blank'),acc:css('--accent'),bg:css('--scope-bg'),grid:css('--scope-grid'),fg:css('--scope-fg')};}
 const sc=$('sc'), cx=sc.getContext('2d'), tl=$('tl'), tx=tl.getContext('2d');
@@ -1450,6 +1486,103 @@ raf=requestAnimationFrame(loop);
   document.querySelectorAll('.chap').forEach(b=>b.addEventListener('click',()=>{const box=document.getElementById('talk_yt'); load(box,+b.dataset.t,true); box.scrollIntoView({block:'nearest'});}));
 })();
 </script>
+<script>
+// 09 path animation demo: Write-on / Comet on any pattern; hidden part cut vs only dimmed
+(function(){
+  const sim=window.LaserSim, $=id=>document.getElementById(id); if(!sim||!$('pa_c')) return;
+  const cv=$('pa_c'), x=cv.getContext('2d'), M=v=>(v*0.44+0.5)*cv.width, MY=v=>(0.5-v*0.44)*cv.height;
+  const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const st={pattern:'star',mode:'comet',hide:'cut',len:0.25}, SP=0.02, SPEED=0.25, COS=Math.cos(30*Math.PI/180);
+  let base=[], phase=0, drag=false, vis=false, last=performance.now();
+  // resample every stroke into ~SP steps; keep original vertices so corners stay exact
+  function prep(){
+    base=sim.strokes({pattern:st.pattern,copies:1}).map(s=>{
+      const src=s.pts.slice(); if(s.closed) src.push(src[0]);
+      const pts=[]; let d=0;
+      for(let i=0;i<src.length;i++){
+        const p=src[i];
+        if(i>0){const a=src[i-1], L=Math.hypot(p[0]-a[0],p[1]-a[1]), n=Math.max(1,Math.ceil(L/SP));
+          for(let k=1;k<n;k++){const t=k/n; pts.push({x:a[0]+(p[0]-a[0])*t,y:a[1]+(p[1]-a[1])*t,d:d+L*t,c:false});}
+          d+=L;}
+        if(!(s.closed&&i===src.length-1)) pts.push({x:p[0],y:p[1],d,c:!!p[2]});
+      }
+      // corner only where the path really turns
+      const n=pts.length;
+      pts.forEach((p,i)=>{ if(!p.c) return; const a=pts[(i-1+n)%n], b=pts[(i+1)%n];
+        if(!s.closed&&(i===0||i===n-1)){p.c=false;return;}
+        const ax=p.x-a.x, ay=p.y-a.y, bx=b.x-p.x, by=b.y-p.y, la=Math.hypot(ax,ay), lb=Math.hypot(bx,by);
+        p.c = la>1e-6&&lb>1e-6&&(ax*bx+ay*by)/(la*lb)<COS; });
+      return {pts,closed:s.closed,L:d,col:s.col};
+    });
+  }
+  function at(s,d){ // point at distance d along stroke s
+    const P=s.pts, n=P.length; if(s.closed){d=((d%s.L)+s.L)%s.L;} else d=Math.max(0,Math.min(s.L,d));
+    for(let i=0;i<n;i++){const a=P[i], b=i+1<n?P[i+1]:(s.closed?{x:P[0].x,y:P[0].y,d:s.L}:null);
+      if(b&&d>=a.d&&d<=b.d){const t=(d-a.d)/Math.max(1e-9,b.d-a.d); return {x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,c:false};}}
+    return {x:P[n-1].x,y:P[n-1].y,c:false};
+  }
+  function windowOf(s,head){ // visible [d0,d1] in distance, may exceed L for closed (wraps)
+    if(st.mode==='writeon') return [0, head*s.L];
+    if(s.closed) return [(head-st.len)*s.L, head*s.L];
+    const h=head*(1+st.len); return [Math.max(0,h-st.len)*s.L, Math.min(1,h)*s.L];
+  }
+  function visible(s,head){ // list of {x,y,c,f} along the window (f = brightness)
+    const [d0,d1]=windowOf(s,head); if(d1-d0<1e-6) return [];
+    const out=[], span=d1-d0, push=(p,d)=>out.push({x:p.x,y:p.y,c:p.c,f:st.mode==='comet'?1-0.8*(d1-d)/span:1});
+    push(at(s,d0),d0);
+    const wrap=s.closed&&d0<0;
+    const inWin=d=>wrap?(d>=d0+s.L||d<=d1):(d>d0&&d<d1);
+    const list=s.pts.filter(p=>inWin(p.d));
+    if(wrap){list.sort((a,b)=>((a.d-d0-s.L+s.L*2)%s.L)-((b.d-d0-s.L+s.L*2)%s.L));}
+    list.forEach(p=>{const dd=wrap&&p.d>d1?p.d-s.L:p.d; push(p,dd);});
+    push(at(s,d1),d1);
+    return out;
+  }
+  let cache=null;
+  function calc(head){
+    const key=[st.pattern,st.mode,st.hide,st.len,head.toFixed(3)].join();
+    if(cache&&cache.key===key) return cache;
+    const vis=base.map(s=>visible(s,head));
+    const litLen=vis.reduce((a,v)=>a+v.reduce((b,p,i)=>i?b+Math.hypot(p.x-v[i-1].x,p.y-v[i-1].y):0,0),0);
+    const total=base.reduce((a,s)=>a+s.L,0);
+    let strokes;
+    if(st.hide==='cut') strokes=vis.filter(v=>v.length>1).map(v=>({pts:v.map(p=>[p.x,p.y,p.c]),closed:false,col:'g'}));
+    else strokes=base.map(s=>({pts:s.pts.map(p=>[p.x,p.y,p.c]),closed:s.closed,col:'g'}));
+    const S=strokes.length?sim.compute({strokes,rate:30000}):{N:1,R:30000};
+    return cache={key,vis,S,lit:total?litLen/total:0};
+  }
+  function headNow(){ return st.mode==='writeon'?Math.min(1,phase*1.25):phase; }
+  function draw(){
+    const head=headNow(), r=calc(head);
+    $('pa_n').textContent=r.S.N; $('pa_hz').textContent=Math.round(r.S.R/r.S.N)+' Hz'; $('pa_lit').textContent=Math.round(r.lit*100)+'%';
+    if(!drag){$('pa_path').value=head.toFixed(3);} $('pa_vpath').textContent=(+$('pa_path').value).toFixed(2);
+    x.fillStyle=css('--scope-bg'); x.fillRect(0,0,cv.width,cv.height);
+    // the full path: faint reference (cut) or dashed grey = still scanned in the dark (dim)
+    x.lineWidth=st.hide==='dim'?1.5:1; x.strokeStyle=st.hide==='dim'?css('--blank'):'rgba(255,255,255,.12)'; x.setLineDash(st.hide==='dim'?[4,5]:[]);
+    base.forEach(s=>{x.beginPath(); s.pts.forEach((p,i)=>i?x.lineTo(M(p.x),MY(p.y)):x.moveTo(M(p.x),MY(p.y))); if(s.closed) x.closePath(); x.stroke();});
+    x.setLineDash([]); x.lineWidth=3; const g=css('--g');
+    r.vis.forEach(v=>{for(let i=1;i<v.length;i++){x.globalAlpha=Math.max(0.15,v[i].f); x.strokeStyle=g; x.beginPath(); x.moveTo(M(v[i-1].x),MY(v[i-1].y)); x.lineTo(M(v[i].x),MY(v[i].y)); x.stroke();}
+      if(v.length){const h=v[v.length-1]; x.globalAlpha=1; x.fillStyle=css('--accent'); x.beginPath(); x.arc(M(h.x),MY(h.y),5,0,Math.PI*2); x.fill();}});
+    x.globalAlpha=1;
+  }
+  function tick(now){
+    const dt=Math.min(0.1,(now-last)/1000); last=now;
+    if(vis){ if(!drag) phase=(phase+dt*SPEED)%1; draw(); }
+    requestAnimationFrame(tick);
+  }
+  function seg(id,key,after){document.querySelectorAll('#'+id+' button').forEach(b=>b.addEventListener('click',()=>{st[key]=b.dataset.v; document.querySelectorAll('#'+id+' button').forEach(o=>o.setAttribute('aria-pressed',o===b?'true':'false')); if(after) after(); cache=null; draw();}));}
+  seg('pa_pat','pattern',prep); seg('pa_mode','mode'); seg('pa_hide','hide');
+  const ps=$('pa_path');
+  ps.addEventListener('pointerdown',()=>{drag=true;}); ps.addEventListener('focus',()=>{drag=true;});
+  ps.addEventListener('input',()=>{const v=+ps.value; phase=st.mode==='writeon'?v/1.25:v; draw();});
+  const resume=()=>{drag=false;}; ps.addEventListener('pointerup',resume); ps.addEventListener('blur',resume); ps.addEventListener('change',resume);
+  $('pa_len').addEventListener('input',e=>{st.len=+e.target.value; $('pa_vlen').textContent=st.len.toFixed(2); cache=null; draw();});
+  $('pa_vlen').textContent=st.len.toFixed(2);
+  new IntersectionObserver(es=>{vis=es[0].isIntersecting;}).observe(cv);
+  prep(); draw(); requestAnimationFrame(tick);
+})();
+</script>
+
 
 
 
