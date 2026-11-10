@@ -1,7 +1,7 @@
 # Class_web_Temp
 
-TouchDesigner 雷射 POP 課程講義（暫時公開版）。
+TouchDesigner 雷射 POP 課程講義的舊網址，現在只是轉址頁。
 
-網頁：https://k591238.github.io/Class_web_Temp/
+講義已搬到：https://k591238.github.io/PB.github.io/handouts/laser-pop/
 
-這個 repo 只放講義網頁和學生版 TD 範例（Student_Laser.toe），內容由主專案自動同步，請不要直接在這裡修改。
+講義原始檔在 TD_Laser_POP，會自動同步到作品集 PB.github.io，這個 repo 不再更新。
