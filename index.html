@@ -149,6 +149,13 @@ svg .ah{fill:var(--fg)}
 .chap span{font-family:var(--mono);font-size:.74rem;color:var(--accent)}
 .chap:hover,.chap:focus-visible{color:var(--accent)}
 @media (max-width:760px){.talk{grid-template-columns:1fr}.talk .side{border-left:0;border-top:1px solid var(--line)}}
+.res{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1rem 1.4rem;align-items:center;border-top:1px solid var(--line-strong);padding-top:1.1rem}
+.res .qr{width:128px;background:#fff;padding:6px;border-radius:4px}
+.res .qr svg{display:block;width:100%;height:auto;shape-rendering:crispEdges}
+.res-txt{display:grid;gap:.55rem;min-width:0}
+.res-txt .url{font-family:var(--mono);font-size:.8rem;word-break:break-all}
+.dl{display:inline-flex;gap:.5rem;align-items:center;justify-self:start;font-family:var(--mono);font-size:.78rem;padding:.5rem .9rem;border:1px solid var(--accent);color:var(--accent);text-decoration:none;border-radius:2px}
+.dl:hover{background:var(--accent);color:var(--bg)}
 svg .ico{color:var(--fg)}
 svg .ico.hwc{color:var(--accent)}
 .kit{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
@@ -275,6 +282,15 @@ input[type=range]:hover::-moz-range-thumb,input[type=range]:focus::-moz-range-th
     <div style="display:grid;gap:1rem">
       <p class="lead">雷射沒有畫面也沒有像素，只有兩面振鏡推著一顆光點沿路徑跑。這份講義先認識硬體與器材，再理解路徑與時間的邏輯，最後在 TouchDesigner 用 POP 做出圖形、送到 Helios。</p>
       <div class="meta-row"><div><span class="rgb" aria-hidden="true"><i></i><i></i><i></i></span><span>第 08 章可直接拉參數體驗；文中數字皆為 TD 實測</span></div></div>
+    </div>
+  </div>
+  <div class="res" aria-label="課程資源">
+    <div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" class="segno" role="img" aria-label="講義網址 QR Code"><path fill="#fff" d="M0 0h33v33h-33z"/><path class="qrline" stroke="#000" d="M2 2.5h7m1 0h2m1 0h3m1 0h1m2 0h1m1 0h1m1 0h7m-29 1h1m5 0h1m1 0h2m3 0h1m2 0h2m1 0h2m1 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m1 0h3m2 0h1m4 0h1m3 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m3 0h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h2m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-20 1h2m1 0h2m1 0h1m3 0h1m-20 1h1m2 0h6m1 0h1m3 0h4m1 0h3m2 0h1m1 0h3m-29 1h4m3 0h1m1 0h3m1 0h3m1 0h3m1 0h1m2 0h1m1 0h2m-28 1h3m1 0h1m1 0h2m1 0h2m1 0h1m2 0h2m3 0h2m2 0h1m1 0h1m-26 1h3m1 0h1m1 0h3m2 0h1m1 0h1m2 0h1m5 0h3m2 0h1m-26 1h4m2 0h1m5 0h2m1 0h1m1 0h3m5 0h1m-28 1h1m1 0h1m1 0h1m2 0h1m4 0h1m1 0h4m2 0h2m1 0h5m-29 1h1m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m1 0h1m-24 1h1m1 0h1m1 0h2m3 0h2m5 0h1m4 0h1m1 0h1m-29 1h3m3 0h1m2 0h1m2 0h6m3 0h1m3 0h1m-26 1h4m3 0h2m2 0h3m1 0h1m1 0h5m1 0h2m1 0h2m-28 1h3m2 0h2m1 0h1m2 0h2m2 0h1m2 0h2m1 0h1m2 0h2m2 0h1m-29 1h5m2 0h1m1 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h4m-27 1h8m3 0h3m3 0h1m2 0h8m-20 1h1m2 0h2m1 0h1m2 0h2m1 0h1m3 0h2m-26 1h7m1 0h3m3 0h4m1 0h2m1 0h1m1 0h2m-26 1h1m5 0h1m1 0h1m1 0h2m3 0h6m3 0h1m2 0h2m-29 1h1m1 0h3m1 0h1m1 0h2m2 0h4m3 0h7m1 0h1m-28 1h1m1 0h3m1 0h1m1 0h2m4 0h3m1 0h1m4 0h1m4 0h1m-29 1h1m1 0h3m1 0h1m2 0h1m1 0h2m2 0h1m2 0h1m2 0h1m2 0h1m1 0h3m-29 1h1m5 0h1m2 0h2m1 0h5m4 0h1m1 0h1m1 0h2m1 0h1m-29 1h7m1 0h1m3 0h1m2 0h2m2 0h5"/></svg></div>
+    <div class="res-txt">
+      <div class="lbl">講義網址 · 掃描或點選開啟</div>
+      <a class="url" href="https://k591238.github.io/Class_web_Temp/">k591238.github.io/Class_web_Temp</a>
+      <a class="dl" href="Student_Laser.toe" download>↓ 下載學生版 TD 範例（Student_Laser.toe）</a>
+      <span class="note">需要 TouchDesigner 2025.33230 以上。打開後依講義章節對照 ch05_path、ch06_budget、ch07_pop_network、laser_patterns、laser_path；用 source_switch 的 Index 切換要送出的章節。</span>
     </div>
   </div>
 </header>
